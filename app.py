@@ -1,3 +1,5 @@
+import os
+import sys
 import streamlit as st
 from PIL import Image
 import requests
@@ -11,7 +13,7 @@ st.set_page_config(
 )
 
 # ----- Meta viewport para responsividad -----
-st.markdown('<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />', unsafe_allow_html=True)
+st.markdown('<meta name="viewport" content="width=device-width, initial-scale=1" />', unsafe_allow_html=True)
 
 # ----- CSS personalizado -----
 css = '''
@@ -32,7 +34,7 @@ body { background-color: #0a0f29; color: #ffffff; font-family: Arial, sans-serif
 .project-card h3 { margin: 1rem; font-size: 1.5rem; }
 .project-card p { margin: 0 1rem 1rem; font-size: 1rem; color: #c0c6d4; }
 .project-card a { text-decoration: none; color: inherit; }
-footer { text-align: center; padding: 1rem 0; background-color: #101838; font-size: .9rem; color: #c0c6d4; }
+footer { text-align: center; padding: 0; background-color: transparent; }
 @media (max-width: 1024px) { .project-card { width: 45%; } }
 @media (max-width: 768px) { .projects-container { flex-direction: column; align-items: center; } .project-card { width: 90%; } }
 </style>
@@ -80,9 +82,24 @@ st.markdown(
     ''', unsafe_allow_html=True)
 
 projects = [
-    {'Blade Inspections': 'Project 1', 'description': 'Es un proyecto basado en PyTorch y TorchVision para entrenar e implementar un modelo de detección de daños en imágenes de turbinas eólicas (o palas). Se utiliza el modelo Faster R-CNN con una arquitectura ResNet50-FPN adaptada a un conjunto de clases definidas por el usuario.', 'https://github.com/xByEMPE/ML-MODEL': '#', 'image': 'https://via.placeholder.com/300x200'},
-    {'Restaurant recomendation': 'Project 2', 'description': 'Un pequeño modelo de ML para la recomendacion de restaurantes en USA dependiendo una seria de filtros introducidos por el cliente.', 'link': '#', 'image': 'https://via.placeholder.com/300x200'},
-    {'Movie recomendation': 'Project 3', 'description': 'Realizar un modelo de Machine Learning para predecir el retorno de una película. Esto conlleva hacer ETL, EDA, Modelamiento y Deployment.', 'link': '#', 'image': 'https://via.placeholder.com/300x200'}
+    {
+        'title': 'Modelo de ML para detección automatizada de daños en palas eólicas',
+        'description': 'Proyecto de modelo de aprendizaje automático para detección automatizada de daños en palas eólicas.',
+        'link': 'https://github.com/xByEMPE/ML-MODEL',
+        'image': 'https://via.placeholder.com/300x200'
+    },
+    {
+        'title': 'Modelo de recomendación para restaurantes en EE.UU.',
+        'description': 'Sistema de recomendación para restaurantes en Estados Unidos, con filtrado personalizado según preferencias del cliente.',
+        'link': 'https://recomendacionrestaurante.streamlit.app/',
+        'image': 'https://via.placeholder.com/300x200'
+    },
+    {
+        'title': 'Sistema de recomendación de películas con NLP',
+        'description': 'Proyecto académico en Henry: sistema de recomendación de películas usando NLP para sugerencias basadas en títulos, como Star Wars.',
+        'link': 'https://github.com/xByEMPE/PI1',
+        'image': 'https://via.placeholder.com/300x200'
+    }
 ]
 
 for proj in projects:
@@ -101,6 +118,27 @@ st.markdown('</div></section>', unsafe_allow_html=True)
 st.markdown(
     '''
     <footer>
-        <p>&copy; 2025 Jesús Enrique García Hernández</p>
+      <div style="display:flex; justify-content:center; gap:1.5rem; align-items:center; padding:1rem 0; background-color:#101838;">
+        <a href="https://www.linkedin.com/in/enrique-garciahdz/" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg" alt="LinkedIn" width="24" height="24" style="filter: invert(1);" />
+        </a>
+        <a href="mailto:jeengaher@gmail.com">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.svg" alt="Gmail" width="24" height="24" style="filter: invert(1);" />
+        </a>
+        <a href="tel:+529711360870">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Phone_font_awesome.svg" alt="Phone" width="24" height="24" style="filter: invert(1);" />
+        </a>
+        <a href="https://github.com/xByEMPE" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" width="24" height="24" style="filter: invert(1);" />
+        </a>
+      </div>
+      <p style="color:#c0c6d4; font-size:.9rem;">&copy; 2025 Jesús Enrique García Hernández</p>
     </footer>
     ''', unsafe_allow_html=True)
+
+# ----- Entry point para Vercel -----
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 8501))
+    sys.argv = ['streamlit', 'run', 'app.py', '--server.port', str(port), '--server.address', '0.0.0.0']
+    from streamlit.web.cli import main
+    main()
