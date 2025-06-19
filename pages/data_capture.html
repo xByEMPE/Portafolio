@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Captura de Datos - VND Blade Platform</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #F2F2F2;
+    }
+    header, footer {
+      background-color: #000;
+      padding: 20px 100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header-content, .footer-content {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    .logo {
+      width: 120px;
+      height: auto;
+    }
+    .portal-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .platform-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+    }
+    .platform-icon {
+      width: 90px;
+      height: auto;
+    }
+    .footer-content span {
+      font-size: 0.95rem;
+    }
+    .footer-logo {
+      width: 40px;
+      height: auto;
+    }
+    main {
+      padding: 40px 100px;
+    }
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      background-color: #1D1D1D;
+      padding: 30px;
+      border-radius: 10px;
+    }
+    label {
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+    input, datalist, select {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    .full-width {
+      grid-column: span 2;
+    }
+    button {
+      padding: 10px;
+      background-color: #F2C641;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e2b530;
+    }
+    .photo-options {
+      grid-column: span 2;
+      display: none;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .photo-options button {
+      flex: 1 1 auto;
+    }
+    .preview-container {
+      grid-column: span 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .preview-container img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+    .preview-container img.selected {
+      border: 2px solid #F2C641;
+    }
+    @media (max-width: 768px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+      .photo-options {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="/web/resource/vndlogo.png" alt="Logo" class="logo">
+      <h1 class="portal-title">
+        <a href="index.html" style="color: inherit; text-decoration: none;">Captura de datos</a>
+        </h1>
+    </div>
+    <div class="platform-name">
+      VND Blade Platform
+      <img src="/web/resource/vnd_ia.png" alt="Icono IA" class="platform-icon">
+    </div>
+  </header>
+
+  <main>
+    <h2>Captura de datos</h2>
+    <form id="data-form">
+      <div>
+        <label for="windfarm">Name of the wind farm</label>
+        <input list="windfarm-list" id="windfarm" name="windfarm">
+        <datalist id="windfarm-list">
+          <option value="Sin información">
+        </datalist>
+      </div>
+      <div>
+        <label for="wtg_number">WTG Number</label>
+        <input list="wtg-number-list" id="wtg_number" name="wtg_number">
+        <datalist id="wtg-number-list">
+          <option value="Sin información">
+        </datalist>
+      </div>
+      <div>
+        <label for="wtg_serial">WTG Serial Number</label>
+        <input list="wtg-serial-list" id="wtg_serial" name="wtg_serial">
+        <datalist id="wtg-serial-list">
+          <option value="Sin información">
+        </datalist>
+      </div>
+      <div>
+        <label for="wtg_model">WTG Model</label>
+        <input list="wtg-model-list" id="wtg_model" name="wtg_model">
+        <datalist id="wtg-model-list">
+          <option value="Sin información">
+        </datalist>
+      </div>
+      <div>
+        <label for="blade_model">Blade Model</label>
+        <input list="blade-model-list" id="blade_model" name="blade_model">
+        <datalist id="blade-model-list">
+          <option value="Sin información">
+        </datalist>
+      </div>
+      <div>
+        <label for="blade_position">Blade Position (A, B, C)</label>
+        <select id="blade_position" name="blade_position" onchange="updateSectionOptions()">
+          <option value="">Selecciona una opción</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="Sin información">Sin información</option>
+        </select>
+      </div>
+      <div id="section-container" style="display: none;">
+        <label for="blade_section">Blade Section</label>
+        <select id="blade_section" name="blade_section">
+          <option value="TE">TE</option>
+          <option value="PS">PS</option>
+          <option value="LE">LE</option>
+          <option value="SS">SS</option>
+        </select>
+      </div>
+      <div>
+        <label for="blade_length">Blade Length</label>
+        <input list="blade-length-list" id="blade_length" name="blade_length">
+        <datalist id="blade-length-list">
+          <option value="Sin información">
+        </datalist>
+      </div>
+      <div>
+        <label for="inspection_date">Inspection Date</label>
+        <input type="date" id="inspection_date" name="inspection_date">
+      </div>
+
+      <div class="photo-options" id="photo-options">
+        <input type="file" id="photo-input" accept="image/*" multiple hidden>
+        <button type="button" onclick="document.getElementById('photo-input').click()">Agregar fotos</button>
+        <button type="button" onclick="selectAllPhotos()">Seleccionar todo</button>
+        <button type="button" onclick="cancelSelection()">Cancelar</button>
+        <button type="button" onclick="clearSelectedPhotos()">Borrar</button>
+        <button type="submit">Cargar</button>
+        <button type="button" onclick="resetForm()">Limpiar</button>
+      </div>
+
+      <div class="preview-container" id="preview-container"></div>
+    </form>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <span>© VND GROUP</span>
+      <img src="/web/resource/vndlogo.png" alt="Logo VND GROUP" class="footer-logo">
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('data-form');
+    const inputs = form.querySelectorAll('input, select');
+    const photoOptions = document.getElementById('photo-options');
+    const photoInput = document.getElementById('photo-input');
+    const previewContainer = document.getElementById('preview-container');
+    const bladePosition = document.getElementById('blade_position');
+    const sectionContainer = document.getElementById('section-container');
+
+    function checkFields() {
+      let allFilled = true;
+      inputs.forEach(input => {
+        if (input.type !== 'file' && input.type !== 'submit' && input.type !== 'button') {
+          if (input.value.trim() === '') allFilled = false;
+        }
+      });
+      photoOptions.style.display = allFilled ? 'flex' : 'none';
+    }
+
+    inputs.forEach(input => {
+      input.addEventListener('input', checkFields);
+      input.addEventListener('change', checkFields);
+    });
+
+    function updateSectionOptions() {
+      if (['A', 'B', 'C'].includes(bladePosition.value)) {
+        sectionContainer.style.display = 'block';
+      } else {
+        sectionContainer.style.display = 'none';
+      }
+    }
+
+photoInput.addEventListener('change', () => {
+  previewContainer.innerHTML = '';
+  const sortedFiles = Array.from(photoInput.files).sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })
+  );
+
+  sortedFiles.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.classList.add('photo');
+      img.onclick = () => img.classList.toggle('selected');
+      previewContainer.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+});
+
+
+    function selectAllPhotos() {
+      previewContainer.querySelectorAll('img').forEach(img => img.classList.add('selected'));
+    }
+
+    function cancelSelection() {
+      previewContainer.querySelectorAll('img.selected').forEach(img => img.classList.remove('selected'));
+    }
+
+    function clearSelectedPhotos() {
+      const selectedImages = previewContainer.querySelectorAll('img.selected');
+      selectedImages.forEach(img => img.remove());
+    }
+
+    function resetForm() {
+      form.reset();
+      previewContainer.innerHTML = '';
+      sectionContainer.style.display = 'none';
+      photoOptions.style.display = 'none';
+    }
+  </script>
+</body>
+</html>

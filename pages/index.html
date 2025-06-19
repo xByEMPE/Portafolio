@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VND Blade Platform</title>
+  <!-- Font Awesome (opcional) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    /* ========= Box-sizing & Reset Global ========= */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; height: 100%; }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-color: #000;
+      color: #22261D;
+      font-family: Arial, sans-serif;
+    }
+
+    /* ========= Header ========= */
+    header {
+      flex: 0 0 auto;
+      background-color: #000;
+      padding: 40px 100px 0;
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+    .left-content {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    .logo { width: 200px; height: auto; }
+    .portal-title {
+      margin: 0;
+      font-size: 2rem;
+      color: #F2F2F2;
+      font-weight: bold;
+    }
+    .platform-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      color: #F2F2F2;
+      font-weight: normal;
+      white-space: nowrap;
+    }
+    .platform-icon {
+      width: 90px;
+      height: auto;
+    }
+
+    /* ========= Main ========= */
+    main {
+      flex: 1 1 auto;
+      display: flex;
+      padding: 20px;
+    }
+
+    /* ========= Grid 2x2 Fullscreen Responsive ========= */
+    .grid-container {
+      flex: 1 1 auto;
+      display: grid;
+      width: 100%;
+      height: 100%;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 35px;
+    }
+    .grid-item {
+      background-color: #F2C641;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.5s ease;
+      text-decoration: none;
+      padding: 20px;
+    }
+    .grid-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+      cursor: pointer;
+    }
+    a.grid-item, a.grid-item:visited {
+      color: #22261D;
+      text-decoration: none;
+    }
+    a.grid-item:hover, a.grid-item:active {
+      color: #000;
+      text-decoration: none;
+    }
+    .icon-svg {
+      width: 20%;
+      max-width: 150px;
+      height: auto;
+      margin-bottom: 15px;
+    }
+    .grid-item h2 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    .grid-item p {
+      margin: 5px 0 0 0;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    /* ========= Footer ========= */
+    footer {
+      flex: 0 0 auto;
+      background-color: #000;
+      color: #F2F2F2;
+      padding: 20px;
+      text-align: left;
+    }
+    .footer-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 100px;
+    }
+    .footer-content span { font-size: 0.95rem; }
+    .footer-logo { width: 40px; height: auto; }
+
+    /* ======== Media Queries para pantallas estrechas ======== */
+    @media (max-width: 600px) {
+      header { padding: 20px; }
+      .header-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .left-content { gap: 15px; }
+      .platform-name { margin-top: 15px; justify-content: center; }
+      .grid-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .icon-svg { width: 30%; margin-bottom: 10px; }
+      .footer-content { padding: 0 20px; flex-direction: column; gap: 5px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <div class="left-content">
+        <img src="/web/resource/vndlogo.png" alt="Logo empresarial" class="logo">
+        <h1 class="portal-title">VND centro de control</h1>
+      </div>
+      <div class="platform-name">
+        VND Blade Platform
+        <img src="/web/resource/vnd_ia.png" alt="Icono IA" class="platform-icon">
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <div class="grid-container">
+      <a href="campana_inspecciones.html" class="grid-item">
+        <img src="/web/resource/icons/illu-data-capture.svg" alt="Icono campaña de inspección" class="icon-svg">
+        <h2>Proyectos</h2>
+        <p>Gestiona los proyectos de inspecciones y reparaciones</p>
+      </a>
+      <a href="avance_general.html" class="grid-item">
+        <img src="/web/resource/icons/report-data.svg" alt="Icono Avance general" class="icon-svg">
+        <h2>Avance general</h2>
+        <p>Monitorea el progreso de los proyectos</p>
+      </a>
+      <a href="reportes_inspecciones.html" class="grid-item">
+        <img src="/web/resource/icons/report-svgrepo-com.svg" alt="Icono reporte de inspecciones" class="icon-svg">
+        <h2>Reportes de inspecciones</h2>
+        <p>Genera y revisa reportes detallados</p>
+      </a>
+      <a href="data_capture.html" class="grid-item">
+        <img src="/web/resource/icons/illu-data-processing.svg" alt="Icono captura de datos" class="icon-svg">
+        <h2>Captura de datos</h2>
+        <p>Carga la información obtenida en campo</p>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <span>© VND GROUP</span>
+      <img src="/web/resource/vndlogo.png" alt="Logo VND GROUP" class="footer-logo">
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    function irACampana() { window.location.href = "campana_inspecciones.html"; }
+    function irAAvance() { window.location.href = "avance_general.html"; }
+    function irAReportes() { window.location.href = "reportes_inspecciones.html"; }
+    function irACapturaDatos() { window.location.href = "captura_datos.html"; }
+  </script>
+</body>
+</html>
